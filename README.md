@@ -31,6 +31,35 @@ Snippet shapes removed (IDs and whitespace normalised):
   <script async src="https://www.googletagmanager.com/gtag/js?id=<ID>"></script><script> window.dataLayer = window.dataLayer || []; function gtag(){dataLayer.push(arguments);} gtag('js', new Date()); gtag('config', '<ID>'); </script>
   ```
 
+## ActiveAdmin assets removed
+
+Owner decision (Phase B, 2026-10-24): the archive doesn't host the Rails admin. The site never had admin pages in `site/`, but the compiled ActiveAdmin assets were there. `python3 -I drop_admin_assets.py 2014.winnipegelection.ca --apply` removed these 22 files, which no public page references:
+
+* `assets/active_admin-ac5375ac9cc8c00c798189ce4dd29531.css`
+* `assets/active_admin-ac5375ac9cc8c00c798189ce4dd29531.css.gz`
+* `assets/active_admin-ef6e7e458629040f3e84d784f28aa7cb.js`
+* `assets/active_admin-ef6e7e458629040f3e84d784f28aa7cb.js.gz`
+* `assets/active_admin/admin_notes_icon-468d26850cfb42dc49961d211d624489.png`
+* `assets/active_admin/application-860ccf17ab05ad1b3e972c379b4d0909.js`
+* `assets/active_admin/application-860ccf17ab05ad1b3e972c379b4d0909.js.gz`
+* `assets/active_admin/datepicker/datepicker-header-bg-a943f37acee45474e7a3df8d759ef43b.png`
+* `assets/active_admin/datepicker/datepicker-input-icon-b657b36c74072becda1495c9b77dc15c.png`
+* `assets/active_admin/datepicker/datepicker-next-link-icon-0bde768951c828c245c79c5f8ed6c799.png`
+* `assets/active_admin/datepicker/datepicker-nipple-1b5f50b5a084b816d0ec341bc20c8b29.png`
+* `assets/active_admin/datepicker/datepicker-prev-link-icon-a4276cf9a2fd0f1659c04191ea1bb5ac.png`
+* `assets/active_admin/index_list_icons/block_icon-5160bae7dffbc7f34540829fa50e0090.svg`
+* `assets/active_admin/index_list_icons/blog_icon-67e1f35741ec0b9a7fa3f677564b4603.svg`
+* `assets/active_admin/index_list_icons/grid_icon-912adc4674299af5295e6ae3315fc1a5.svg`
+* `assets/active_admin/index_list_icons/table_icon-0cca9e722525fdbaecb12f389ef4d9f7.svg`
+* `assets/active_admin/loading-9343f1c705c2df306301db1e0d568554.gif`
+* `assets/active_admin/nested_menu_arrow-d9ce048353f471469e0dd1f1ba4333d0.gif`
+* `assets/active_admin/nested_menu_arrow_dark-37136c90075d14f9a2f025b46b17a76b.gif`
+* `assets/active_admin/orderable-1083a7abf8d1c9a2fd8288c5b315f5cb.png`
+* `assets/active_admin/print-161bad35671c044ce2d93f9624b02428.css`
+* `assets/active_admin/print-161bad35671c044ce2d93f9624b02428.css.gz`
+
+**Left as is:** the Sprockets manifest `assets/manifest-*.json` (Rails' build listing of every compiled asset) still names them, and `assets/application-*.js` contains ActiveAdmin's bundled code (CSS class names only; it loads no admin file).
+
 ## Hosting
 
 Served from **Cloudflare Workers static assets** (Phase B of the olddroplet migration). `wrangler.jsonc`, `.gitignore` and this section are written by `hosting.py` (`python3 -I hosting.py 2014.winnipegelection.ca <preview|routed|final>`).
