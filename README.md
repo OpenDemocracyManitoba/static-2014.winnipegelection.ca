@@ -60,6 +60,14 @@ Owner decision (Phase B, 2026-10-24): the archive doesn't host the Rails admin. 
 
 **Left as is:** the Sprockets manifest `assets/manifest-*.json` (Rails' build listing of every compiled asset) still names them, and `assets/application-*.js` contains ActiveAdmin's bundled code (CSS class names only; it loads no admin file).
 
+## Unrelated files removed
+
+Owner decision (Phase B, 2026-10-25): files that aren't part of the site were removed by `python3 -I drop_unrelated.py 2014.winnipegelection.ca --apply` (25 files). No remaining file references them.
+
+* `doc/` (4 files): graphviz model/controller diagrams of the Rails app (developer docs)
+* `uploads/tmp/` (20 files): upload cache left behind by the image uploader
+* `index.html.old` (1 file): an old copy of the home page, unreferenced
+
 ## Hosting
 
 Served from **Cloudflare Workers static assets** (Phase B of the olddroplet migration). `wrangler.jsonc`, `.gitignore` and this section are written by `hosting.py` (`python3 -I hosting.py 2014.winnipegelection.ca <preview|routed|final>`).
